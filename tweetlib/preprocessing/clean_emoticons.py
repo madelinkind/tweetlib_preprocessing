@@ -2,8 +2,7 @@ from spacymoji import Emoji
 from tweetlib.init_nlp import init_nlp
 from tweetlib.definitions import TaggingMethod, DictionarySize, Lang
 
-def CleanEmoticons(text: str, method: TaggingMethod):
-    # nlp = cargar nlp en esta linea
+def CleanEmoticons(text: str):
     nlp = init_nlp(TaggingMethod.SPACY, Lang.ES, size=DictionarySize.MEDIUM)
     list_within_emoji = []
     emoji = Emoji(nlp)

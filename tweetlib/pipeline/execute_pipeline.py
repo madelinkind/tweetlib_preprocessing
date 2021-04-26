@@ -68,10 +68,10 @@ class TwitterPipeline(object):
         data_texts = data.copy()
         # for each preprocessing in self.config
             # apply preprocessing to data
-        for preprocessing in preprocessing_list:                
+        for preprocessing in preprocessing_list:
             prep_method = dict_preprocessing[preprocessing]
             for idx, text in enumerate(data_texts):
-                prep = prep_method(text, TaggingMethod.SPACY)
+                prep = prep_method(text)
                 data_texts[idx] = prep
 
         # apply encoding

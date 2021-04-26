@@ -1,8 +1,11 @@
-from tweetlib.definitions import TaggingMethod
+import re
 
-# Remove links, and special characters
-def CleanTweets(text: str, method: TaggingMethod):
-    pass
+# text = """https://pepe.pepe.pepe.com probando #PP @Maria quiere comentar # # # :)"""
+
+# Remove links, hashtag and special characters
+def CleanTweets(text: str):
+    result = (' '.join(re.sub("(#[A-Za-z0-9]+)|([^0-9A-Za-z-ñ \t])|(\w+:\/\/\S+)"," ",text).split()))
+    return result
 
 #https://stackoverflow.com/questions/24399820/expression-to-remove-url-links-from-twitter-tweet
 
@@ -16,3 +19,6 @@ def CleanTweets(text: str, method: TaggingMethod):
 
 #Lo mismo que el de arriba pero le hice un pequeo cambio para que me tomara en cuenta la ñ
 #' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z-ñ \t])|(\w+:\/\/\S+)"," ",x).split())
+
+# if __name__ == '__main__':
+#     CleanTweets(text)
