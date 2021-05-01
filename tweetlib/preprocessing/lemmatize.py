@@ -1,4 +1,4 @@
-#Llevar la palapara a su estado base
+#Llevar la palapara a su estado base con SPACY (lemma)
 import es_core_news_lg
 
 def Lemmatize(text: list):
@@ -7,9 +7,8 @@ def Lemmatize(text: list):
     for i in range(len(text)):
         tokens = nlp(text[i])
         for word in tokens:
-            lem_text.append(word.lemma_.strip())
+            lem_text.append(word.lemma_)
     return lem_text
-
 
 #-------------------------------------------------------------------------------------------------
 #SECCIÓN DE PRUEBAS
