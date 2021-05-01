@@ -38,7 +38,9 @@ class Preprocessing(Enum):
     CLEAN_EMOTICONS = 2
     LEMMATIZE = 3
     STOP_WORDS = 4
-    TOKENIZE = 5
+    REMOVE_LINKS = 5
+    TOKENIZE = 6
+    LOWERCASE = 7
 
 # TYPE ENCODING
 class EncodingMethod(Enum):

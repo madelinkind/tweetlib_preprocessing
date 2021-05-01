@@ -14,9 +14,11 @@ from tweetlib.classification.classification import Classification
 from tweetlib.data_set.politicos import DataSetPoliticos
 
 config = Configuration([
+        Preprocessing.TOKENIZE,
+        Preprocessing.LOWERCASE,
+        Preprocessing.LEMMATIZE,
         Preprocessing.CLEAN_EMOTICONS, 
-        Preprocessing.STOP_WORDS, 
-        Preprocessing.LEMMATIZE
+        Preprocessing.STOP_WORDS
     ], 
     EncodingMethod.POSTAGGING, 
     ClassificationMethod.SVM

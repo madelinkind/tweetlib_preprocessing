@@ -1,9 +1,7 @@
 import re
 
-# text = """https://pepe.pepe.pepe.com probando #PP @Maria quiere comentar # # # :)"""
-
 # Remove links, hashtag and special characters
-def CleanTweets(text: str):
+def CleanTweets(text: list):
     result = (' '.join(re.sub("(#[A-Za-z0-9]+)|([^0-9A-Za-z-ñ \t])|(\w+:\/\/\S+)"," ",text).split()))
     return result
 

@@ -35,12 +35,11 @@ class Configuration(object):
     def set_classification_method(self, classification_method: int):
         self.classification_method = classification_method
 
-    list_of_preprocessing_to_apply = [
-        Preprocessing.CLEAN_TWEET,
-        Preprocessing.CLEAN_EMOTICONS,
-        Preprocessing.LEMMATIZE,
-        Preprocessing.TOKENIZE,
-        Preprocessing.STOP_WORDS
-    ]
+    # list_of_preprocessing_to_apply = [
+    #     Preprocessing.CLEAN_TWEET,
+    #     Preprocessing.CLEAN_EMOTICONS,
+    #     Preprocessing.LEMMATIZE,
+    #     Preprocessing.STOP_WORDS
+    # ]
 # clase que se encarga del preprocesamiento
     # p = TwitterPipeline(c1)
