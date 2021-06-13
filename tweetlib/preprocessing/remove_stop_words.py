@@ -8,9 +8,10 @@ from spacy.lang.es.stop_words import STOP_WORDS
 def Stop_words(text: list):
     list_text = []
     #Para filtrar stopwords
-    for word in text:
-        if not word in STOP_WORDS:
-            list_text.append(word)
+    list_text = [str(word) for word in text if not word in STOP_WORDS]
+    # for word in text:
+    #     if not word in STOP_WORDS:
+    #         list_text.append(word)
     return list_text
 
 # if __name__ == '__main__':

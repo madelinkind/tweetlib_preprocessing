@@ -1,14 +1,28 @@
 #Llevar la palapara a su estado base con SPACY (lemma)
-import es_core_news_lg
+# import es_core_news_lg
 
-def Lemmatize(text: list):
-    nlp = es_core_news_lg.load()
+# text = ["Monitorización", "monitorizando", "realizando", "realización", "estudio", "emoticons", "😊", "😋", "🥰", "😚", ":)", "❥", "⚤", " ✱"]
+
+
+def Lemmatize(text: list, nlp):
+    """Convierte cada token a su estado base con ayuda de la biblioteca SPACY
+
+    Args:
+        text (list[str]): Lista de tokens.
+        nlp ([type]): Biblioteca de spacy, para utilizar sus atributos, en este caso "_lemma".
+
+    Returns:
+        list[str]: Lista lematizada.
+    """
     lem_text = []
-    for i in range(len(text)):
-        tokens = nlp(text[i])
-        for word in tokens:
-            lem_text.append(word.lemma_)
-    return lem_text
+    doc = nlp(" ".join(text))
+    lem_text = [str(word.lemma_) for word in doc]
+    # for word in tokens:
+    #     lem_text.append(word.lemma_)
+    return lem_text 
+
+# if __name__ == '__main__':
+#     Lemmatize(text)
 
 #-------------------------------------------------------------------------------------------------
 #SECCIÓN DE PRUEBAS
@@ -17,36 +31,13 @@ def Lemmatize(text: list):
 # import spacy
 # import es_core_news_lg
 # import stanza
-# list_texts = get_list_texts()
-
-#Spacy
-# def Lemmatize(list_texts: list):
-#     sp = es_core_news_lg.load()
-#     lem_text = []
-#     for text in list_texts: 
-#         for i in range(len(text)):
-#             sentence7 = sp(text[i])
-#             for word in sentence7:
-#                 print(f'word: {word} \tlemma: {word.lemma_}')
-
-#Stanza
-# def Lemmatize(list_texts: list):
-#     nlp = stanza.Pipeline('es')
-#     for text in list_texts: 
-#         for i in range(len(text)):
-#             doc = nlp(text[i])
-#             for sent in doc.sentences:
-#                 for word in sent.words:
-#                     print(f'word: {word.text} \tlemma: {word.lemma}') 
-
-# if __name__ == '__main__':
-#     Lemmatize(list_texts)
 
 #-------------------------------------------------------------------------------------------------
 #SECCIÓN DATASET UTILIZADO
 #-------------------------------------------------------------------------------------------------
 
 # text = ["Mucha", "mano", ",", "técnica", "en", "productos"]
+# text0 = ["Monitorización", "monitorizando", "realizando", "realización", "estudio", "emoticons", "😊", "😋", "🥰", "😚", ":)", "❥", "⚤", " ✱"]
 # text1 = ["Ser", "creativo", "significa", "estar", "enamorado", "de", "la", "vida"]
 # text2 = ["No", "temas", "a", "la", "perfección", ":", "nunca", "la", "alcanzarás"]
 # text3 = ["Cualquier", "actividad", "se", "vuelve", "creativa"]
@@ -55,11 +46,35 @@ def Lemmatize(text: list):
 # def get_list_texts():
 #     return [
 #         text,
+#         text0,
 #         text1,
 #         text2,
 #         text3,
 #         text4
 #     ]
+
+# list_texts = get_list_texts()
+
+#Spacy
+# def Lemmatize(list_texts: list):
+#     nlp = es_core_news_lg.load()
+#     lem_text = []
+#     for text in list_texts: 
+#         doc = nlp(" ".join(text))
+#         for word in doc:
+#            print(f'word: {word} \tlemma: {word.lemma_}')
+
+# Stanza
+# def Lemmatize(list_texts: list):
+#     nlp = stanza.Pipeline('es')
+#     for text in list_texts: 
+#         doc = nlp(" ".join(text))
+#         for sent in doc.sentences:
+#             for word in sent.words:
+#                 print(f'word: {word.text} \tlemma: {word.lemma}') 
+
+# if __name__ == '__main__':
+#     Lemmatize(list_texts)
 
 #-------------------------------------------------------------------------------------------------
 #SECCIÓN RESULTADOS

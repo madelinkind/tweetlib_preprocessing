@@ -35,12 +35,18 @@ sys.path.append(PROJECT_FOLDER)
 from tweetlib.data_set.data_set import DataSet
 from tweetlib.config.configuration import Configuration
 from tweetlib.encoding import postagging
-from tweetlib.definitions import TaggingMethod
+# from tweetlib.definitions import TaggingMethod
 from tweetlib.classification.classification import Classification
 # from tweetlib.preprocessing.remove_stop_words import Stop_words
+from tweetlib.definitions import TaggingMethod, DictionarySize, Lang
+from tweetlib.init_nlp import init_nlp
 
 from tweetlib.preprocessing.prep_definitions import dict_preprocessing
 from tweetlib.encoding.enc_definitions import dict_encoding
+
+#INITIALIZE THE LIBRARY TO USE
+# nlp = init_nlp(TaggingMethod.STANZA, Lang.ES, size=DictionarySize.MEDIUM)
+nlp = init_nlp(TaggingMethod.SPACY, Lang.ES, size=DictionarySize.MEDIUM)
 
 class TwitterPipeline(object):
 
@@ -63,21 +69,31 @@ class TwitterPipeline(object):
         encoding = self.config.get_encoding_method()
         classifier_type = self.config.get_classificaion_method()
         vectors = []
-
+        #INITIALIZE THE LIBRARY TO USE
+        # nlp = init_nlp(TaggingMethod.STANZA, Lang.ES, size=DictionarySize.MEDIUM)
+        nlp = init_nlp(TaggingMethod.SPACY, Lang.ES, size=DictionarySize.MEDIUM)
         #copy to data
         data_texts = data.copy()
         # for each preprocessing in self.config
             # apply preprocessing to data
         for preprocessing in preprocessing_list:
             prep_method = dict_preprocessing[preprocessing]
-            for idx, text in enumerate(data_texts):
-                prep = prep_method(text)
-                data_texts[idx] = prep
+            if preprocessing.name != 'LOWERCASE' and preprocessing.name != 'STOP_WORDS':
+                for idx, text in enumerate(data_texts):
+                    prep = prep_method(text, nlp)
+                    data_texts[idx] = prep
+            else:
+                for idx, text in enumerate(data_texts):
+                    prep = prep_method(text)
+                    data_texts[idx] = prep
 
         # apply encoding
         encoding_method = dict_encoding[encoding]
-        for idx, text in enumerate(data_texts):
-            encoding_result = encoding_method(text, TaggingMethod.SPACY)
+        for text in data_texts:
+            if encoding.name == 'TRIGRAM' or encoding.name == 'CUATRIGRAM':
+                encoding_result = encoding_method(text, 3)
+            else:
+                encoding_result = encoding_method(str(text), TaggingMethod.SPACY)
             vectors.append(encoding_result)
         X = np.vstack(vectors)
 

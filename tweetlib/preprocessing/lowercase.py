@@ -1,7 +1,17 @@
 
 #Establecer todas las palabras a minúscula
 def Lowercase(text: list):
+    """[summary]
+
+    Args:
+        text (list[str]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     lowercase_text = []
-    for word in text:
-        lowercase_text.append(word.lower().strip())
+    
+    lowercase_text = [str(word.lower().strip()) for word in text]
+    # for word in text:
+    #     lowercase_text.append(word.lower().strip())
     return lowercase_text

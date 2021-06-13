@@ -1,9 +1,17 @@
-import re
+# import re
 
-# Remove links, hashtag and special characters
-def CleanTweets(text: list):
-    result = (' '.join(re.sub("(#[A-Za-z0-9]+)|([^0-9A-Za-z-ñ \t])|(\w+:\/\/\S+)"," ",text).split()))
-    return result
+#-------------------------------------------------------------------------------------------------
+#SECCIÓN DATASET UTILIZADO
+#-------------------------------------------------------------------------------------------------
+
+# text = ["@Made", "#PP", "https://pp.com", "@Madelin", "#pepe", "Mucha", "mano", ",", "técnica", "en", "productos", "http://pp.com,"]
+# text = '@Made #9l #ñ https://pp.com #yty#$@%'
+
+# Remove hashtag
+# def CleanTweets(text: list):
+#     corpus = " ".join(text)
+#     result = (' '.join(re.sub("(#[A-Za-z0-9-ñ]+)"," ",corpus).split()))
+#     return result.split(',')
 
 #https://stackoverflow.com/questions/24399820/expression-to-remove-url-links-from-twitter-tweet
 

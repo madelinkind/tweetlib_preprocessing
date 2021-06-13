@@ -15,13 +15,19 @@ from tweetlib.data_set.politicos import DataSetPoliticos
 
 config = Configuration([
         Preprocessing.TOKENIZE,
-        Preprocessing.LOWERCASE,
-        Preprocessing.LEMMATIZE,
-        Preprocessing.CLEAN_EMOTICONS, 
-        Preprocessing.STOP_WORDS
+        # Preprocessing.REMOVE_CHARACTERS,
+        # Preprocessing.REMOVE_NUM,
+        # Preprocessing.REMOVE_PUNCT,
+        # Preprocessing.REMOVE_EMAILS,
+        # Preprocessing.REMOVE_LINKS,
+        # Preprocessing.LOWERCASE,
+        # Preprocessing.LEMMATIZE,
+        # Preprocessing.CLEAN_EMOTICONS, 
+        # Preprocessing.STOP_WORDS
     ], 
-    EncodingMethod.POSTAGGING, 
-    ClassificationMethod.SVM
+    # EncodingMethod.POSTAGGING,
+    EncodingMethod.TRIGRAM, 
+    ClassificationMethod.LOGISTIC_REGRESSION
 )
 
 data_set_politicos = DataSetPoliticos()

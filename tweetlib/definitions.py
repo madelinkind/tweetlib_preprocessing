@@ -34,19 +34,23 @@ class TypeUser():
 
 # TYPE PREPROCESSING
 class Preprocessing(Enum):
-    CLEAN_TWEET = 1
+    REMOVE_NUM = 1
     CLEAN_EMOTICONS = 2
     LEMMATIZE = 3
     STOP_WORDS = 4
     REMOVE_LINKS = 5
     TOKENIZE = 6
     LOWERCASE = 7
+    REMOVE_EMAILS = 8
+    REMOVE_PUNCT = 9
+    REMOVE_CHARACTERS = 10
 
 # TYPE ENCODING
 class EncodingMethod(Enum):
-    NGRAM_WORD = 1
-    POSTAGGING = 2
-    MARKOV = 3
+    TRIGRAM = 1
+    CUATRIGRAM = 2
+    POSTAGGING = 3
+    MARKOV = 4
 
 # TYPE CLASSIFICATION
 class ClassificationMethod(Enum):

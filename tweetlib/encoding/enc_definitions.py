@@ -1,10 +1,12 @@
 from tweetlib.encoding.postagging import postagging_encoding
-from tweetlib.encoding.word_ngrams import Bigram
+from tweetlib.encoding.char3grams import CharGrams
+from tweetlib.encoding.char4grams import CharGrams
 from tweetlib.encoding.markov import Markov
 from tweetlib.definitions import EncodingMethod
 
 dict_encoding = {
-    EncodingMethod.NGRAM_WORD: Bigram,
+    EncodingMethod.TRIGRAM: CharGrams,
+    EncodingMethod.CUATRIGRAM: CharGrams,
     EncodingMethod.POSTAGGING: postagging_encoding,
     EncodingMethod.MARKOV: Markov
 }

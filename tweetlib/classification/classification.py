@@ -48,9 +48,9 @@ class Classification(object):
     def classification_method(self, X, y, method: ClassificationMethod):
        #Separo los datos de "train" en entrenamiento y prueba para probar los algoritmos
         #dividimos en sets de entrenamiento y test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
         #ejecutamos el modelo
-        model = run_model_balanced(X_train, X_test, y_train, y_test, method)
+        model = self.run_model_balanced(X_train, X_test, y_train, y_test, method)
         # se realiza las predicciones en los datos de prueba usando predict()
         pred_y = model.predict(X_test)
         return pred_y, y_test
