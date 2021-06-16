@@ -91,25 +91,26 @@ class TwitterPipeline(object):
         encoding_method = dict_encoding[encoding]
         for text in data_texts:
             if encoding.name == 'TRIGRAM' or encoding.name == 'CUATRIGRAM':
-                encoding_result = encoding_method(text, 3)
+                encoding_result = encoding_method(text, 2)
             else:
                 encoding_result = encoding_method(str(text), TaggingMethod.SPACY)
             vectors.append(encoding_result)
         X = np.vstack(vectors)
 
-        #classifier
-        y_test, pred_y = self.classifier.classification_method(X, y, classifier_type)
+        # #classifier
+        # y_test, pred_y = self.classifier.classification_method(X, y, classifier_type)
+        accuracy = self.classifier.classification_method(X, y, classifier_type)
 
-        #mostrar los resultados
-        conf_matrix = confusion_matrix(y_test, pred_y)
-        plt.figure(figsize=(12, 12))
-        LABELS= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        sns.heatmap(conf_matrix, xticklabels=LABELS, yticklabels=LABELS, annot=True, fmt="d");
-        plt.title("Confusion matrix")
-        plt.ylabel('True class')
-        plt.xlabel('Predicted class')
-        plt.show()
-        print (classification_report(y_test, pred_y))
+        # #mostrar los resultados
+        # conf_matrix = confusion_matrix(y_test, pred_y)
+        # plt.figure(figsize=(12, 12))
+        # LABELS= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        # sns.heatmap(conf_matrix, xticklabels=LABELS, yticklabels=LABELS, annot=True, fmt="d");
+        # plt.title("Confusion matrix")
+        # plt.ylabel('True class')
+        # plt.xlabel('Predicted class')
+        # plt.show()
+        # print (classification_report(y_test, pred_y))
 
 # #modificado por mi
 #      #definimos funcion para mostrar los resultados

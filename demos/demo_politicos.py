@@ -22,12 +22,13 @@ config = Configuration([
         # Preprocessing.REMOVE_LINKS,
         # Preprocessing.LOWERCASE,
         # Preprocessing.LEMMATIZE,
-        # Preprocessing.CLEAN_EMOTICONS, 
+        Preprocessing.CLEAN_EMOTICONS, 
         # Preprocessing.STOP_WORDS
     ], 
     # EncodingMethod.POSTAGGING,
     EncodingMethod.TRIGRAM, 
-    ClassificationMethod.LOGISTIC_REGRESSION
+    # ClassificationMethod.LOGISTIC_REGRESSION
+    ClassificationMethod.SVM
 )
 
 data_set_politicos = DataSetPoliticos()
