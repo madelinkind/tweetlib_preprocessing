@@ -13,11 +13,9 @@ PROJECT_FOLDER = os.path.split(TWEET_LIB_FOLDER)[0]
 
 sys.path.append(PROJECT_FOLDER)
 
-from tweetlib.encoding.char_grams import CharGrams
-text = ['studenú', 'qwed', 'prueba', 'trigramram', 'i\'']
+from tweetlib.encoding.char_grams import char_grams
+# text = ['studenú', 'qwed', 'prueba', 'trigramram', 'i\'']
 
 
-# CharGrams(text,n=3)
-
-if __name__ == '__main__':
-    CharGrams(text,n=2)
+def char_2_gram(data_texts):
+    return char_grams(data_texts,2)

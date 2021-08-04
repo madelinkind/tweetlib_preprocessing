@@ -86,8 +86,8 @@ class Classification(object):
             clf = LogisticRegression(C=1.0,penalty='l2',random_state=1,solver="newton-cg",class_weight="balanced")
         if method == ClassificationMethod.SVM:
             clf = SVC(kernel='linear',class_weight="balanced")
-        # if method == ClassificationMethod.BAYES:
-        #     clf = MultinomialNB(class_weight="balanced")
+        if method == ClassificationMethod.BAYES:
+            clf = MultinomialNB(class_weight="balanced")
         #Ajustamos los datos de entrenamiento en el clasificador usando fit(). Entrenar nuestro modelo
         clf.fit(X_train, y_train)
         return clf

@@ -1,8 +1,10 @@
+from tweetlib.singleton import Utils
+from tweetlib.definitions import TaggingMethod
 # from tweetlib.definitions import TaggingMethod, DictionarySize, Lang
 # from tweetlib.init_nlp import init_nlp
-
+nlp = Utils.load_nlp(TaggingMethod.SPACY)
 #Tokenizar el texto
-def Tokenize(text: str, nlp):
+def tokenize(text: str):
     """Convierte un string en una lista de tokens
 
     Args:

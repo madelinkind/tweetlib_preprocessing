@@ -1,24 +1,29 @@
-from tweetlib.preprocessing.clean_emoticons import CleanEmoticons
-from tweetlib.preprocessing.lemmatize import Lemmatize
-from tweetlib.preprocessing.remove_num import RemoveNum
-from tweetlib.preprocessing.remove_punct import RemovePunct
-from tweetlib.preprocessing.remove_stop_words import Stop_words
-from tweetlib.preprocessing.remove_links import RemoveLinks
-from tweetlib.preprocessing.tokenize import Tokenize
-from tweetlib.preprocessing.lowercase import Lowercase
-from tweetlib.preprocessing.remove_emails import RemoveEmails
-from tweetlib.preprocessing.remove_characters import RemoveCharacters
+from tweetlib.preprocessing.emoticons import rm_emoticons
+from tweetlib.preprocessing.lemmatize import lemmatize
+from tweetlib.preprocessing.num import rm_num
+from tweetlib.preprocessing.punct import rm_punct
+from tweetlib.preprocessing.remove_stop_words import rm_stop_words
+from tweetlib.preprocessing.links import rm_links
+from tweetlib.preprocessing.tokenize import tokenize
+from tweetlib.preprocessing.lowercase import lowercase
+from tweetlib.preprocessing.emails import rm_emails
+from tweetlib.preprocessing.remove_alpha_numeric import rm_alpha_numeric
+from tweetlib.preprocessing.hashtags import rm_hashtags, fix_hashtags_in_text
+from tweetlib.preprocessing.mentions import rm_mentions
 from tweetlib.definitions import Preprocessing
 
 dict_preprocessing = {
-    Preprocessing.REMOVE_NUM: RemoveNum,
-    Preprocessing.REMOVE_PUNCT: RemovePunct,
-    Preprocessing.REMOVE_CHARACTERS: RemoveCharacters,
-    Preprocessing.CLEAN_EMOTICONS: CleanEmoticons,
-    Preprocessing.LEMMATIZE: Lemmatize,
-    Preprocessing.STOP_WORDS: Stop_words,
-    Preprocessing.REMOVE_LINKS: RemoveLinks,
-    Preprocessing.REMOVE_EMAILS: RemoveEmails,
-    Preprocessing.TOKENIZE: Tokenize,
-    Preprocessing.LOWERCASE: Lowercase
+    Preprocessing.NUM: rm_num,
+    Preprocessing.PUNCT: rm_punct,
+    Preprocessing.REMOVE_ALPHA_NUMERIC: rm_alpha_numeric,
+    Preprocessing.EMOTICONS: rm_emoticons,
+    Preprocessing.LEMMATIZE: lemmatize,
+    Preprocessing.REMOVE_STOP_WORDS: rm_stop_words,
+    Preprocessing.LINKS: rm_links,
+    Preprocessing.EMAILS: rm_emails,
+    Preprocessing.TOKENIZE: tokenize,
+    Preprocessing.LOWERCASE: lowercase,
+    Preprocessing.HASHTAG: rm_hashtags,
+    Preprocessing.MENTIONS: rm_mentions,
+    Preprocessing.FIX_HASHTAG_TEXT: fix_hashtags_in_text
 }

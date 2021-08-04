@@ -4,7 +4,7 @@
 #y= Crear 
 import numpy as np
 # import itertools
-from tweetlib.singleton import NGramUtils 
+from tweetlib.singleton import Utils 
 
 # dict_ngram = {
 
@@ -19,23 +19,26 @@ from tweetlib.singleton import NGramUtils
 #         dict_ngram[i] = 0
 #     return dict_ngram
 
-def CharGrams(text,n):
-    #Uno la lista de string
-    text_union = "".join(text)
-    #Separo en ngram
-    ngram = [text_union[i:i+n] for i in range(len(text_union)-n+1)]
-    print(ngram)
-    # dict_alpha_num = dict_alpha_numeric(n)
-    dict_alpha_num = NGramUtils.ngrams(n)
-    for i in ngram:
-        if i in dict_alpha_num:
-            dict_alpha_num[i] += 1
-            print(dict_alpha_num[i])
-        else:
-            print('El valor no existe en diccionario')
-            continue
-    vector_freq = freq_dict(dict_alpha_num)
-    return vector_freq
+def char_grams(data_texts,n):
+    for text in data_texts:
+        #Uno la lista de string sin espacios
+        text_union = "".join(text)
+        #Separo en ngram
+        ngram = [text_union[i:i+n] for i in range(len(text_union)-n+1)]
+        print(ngram)
+        # dict_alpha_num = dict_alpha_numeric(n)
+        dict_alpha_num = Utils.ngrams(n)
+        for i in ngram:
+            if i in dict_alpha_num:
+                dict_alpha_num[i] += 1
+                print(dict_alpha_num[i])
+            else:
+                print(i)
+                print('El valor no existe en diccionario')
+                continue
+        vector_freq = freq_dict(dict_alpha_num)
+        vectors.append(vector_freq)
+    return vectors
 # if __name__ == '__main__':
 #     Char3Grams(b,n=3)
 

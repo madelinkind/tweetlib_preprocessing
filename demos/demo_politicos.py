@@ -8,27 +8,31 @@ sys.path.insert(0, parent_dir)
 from tweetlib.data_set.data_set import DataSet
 from tweetlib.pipeline.execute_pipeline import TwitterPipeline
 from tweetlib.config.configuration import Configuration
-from tweetlib.definitions import Preprocessing, EncodingMethod, ClassificationMethod
+from tweetlib.definitions import Preprocessing, EncodingMethod, ClassificationMethod, TaggingMethod
 from tweetlib.classification.classification import Classification
 
 from tweetlib.data_set.politicos import DataSetPoliticos
 
 config = Configuration([
-        Preprocessing.TOKENIZE,
-        # Preprocessing.REMOVE_CHARACTERS,
-        # Preprocessing.REMOVE_NUM,
-        # Preprocessing.REMOVE_PUNCT,
-        # Preprocessing.REMOVE_EMAILS,
-        # Preprocessing.REMOVE_LINKS,
+        # Preprocessing.TOKENIZE,
+        Preprocessing.FIX_HASHTAG_TEXT,
+        # Preprocessing.REMOVE_ALPHA_NUMERIC,
+        # Preprocessing.NUM,
+        # Preprocessing.PUNCT,
+        # Preprocessing.EMAILS,
+        # Preprocessing.LINKS,
         # Preprocessing.LOWERCASE,
         # Preprocessing.LEMMATIZE,
-        Preprocessing.CLEAN_EMOTICONS, 
-        # Preprocessing.STOP_WORDS
+        # Preprocessing.EMOTICONS, 
+        # Preprocessing.REMOVE_STOP_WORDS,
+        # Preprocessing.MENTIONS,
+        # Preprocessing.HASHTAG
     ], 
-    # EncodingMethod.POSTAGGING,
-    EncodingMethod.TRIGRAM, 
+    EncodingMethod.POSTAGGING,
+    # EncodingMethod.BIGRAM, 
     # ClassificationMethod.LOGISTIC_REGRESSION
-    ClassificationMethod.SVM
+    ClassificationMethod.SVM,
+    TaggingMethod.SPACY
 )
 
 data_set_politicos = DataSetPoliticos()

@@ -5,7 +5,7 @@ from spacy.lang.es.stop_words import STOP_WORDS
 
 # text = ['además', 'ir', ':(', ':)', '']
 
-def Stop_words(text: list):
+def rm_stop_words(text: list):
     list_text = []
     #Para filtrar stopwords
     list_text = [str(word) for word in text if not word in STOP_WORDS]

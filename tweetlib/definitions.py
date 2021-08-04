@@ -34,23 +34,28 @@ class TypeUser():
 
 # TYPE PREPROCESSING
 class Preprocessing(Enum):
-    REMOVE_NUM = 1
-    CLEAN_EMOTICONS = 2
-    LEMMATIZE = 3
-    STOP_WORDS = 4
-    REMOVE_LINKS = 5
-    TOKENIZE = 6
-    LOWERCASE = 7
-    REMOVE_EMAILS = 8
-    REMOVE_PUNCT = 9
-    REMOVE_CHARACTERS = 10
+    TOKENIZE = 1
+    LEMMATIZE = 2
+    LOWERCASE = 3
+    REMOVE_STOP_WORDS = 4
+    NUM = 5
+    EMOTICONS = 6
+    LINKS = 7
+    EMAILS = 8
+    PUNCT = 9
+    REMOVE_ALPHA_NUMERIC = 10
+    MENTIONS = 11
+    HASHTAG = 12
+    FIX_HASHTAG_TEXT = 13
+
 
 # TYPE ENCODING
 class EncodingMethod(Enum):
-    TRIGRAM = 1
-    CUATRIGRAM = 2
-    POSTAGGING = 3
-    MARKOV = 4
+    BIGRAM = 1
+    TRIGRAM = 2
+    CUATRIGRAM = 3
+    POSTAGGING = 4
+    MARKOV = 5
 
 # TYPE CLASSIFICATION
 class ClassificationMethod(Enum):

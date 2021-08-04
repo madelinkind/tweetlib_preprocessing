@@ -1,6 +1,5 @@
-
 #Establecer todas las palabras a minúscula
-def Lowercase(text: list):
+def lowercase(text: list):
     """[summary]
 
     Args:

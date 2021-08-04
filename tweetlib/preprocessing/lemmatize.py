@@ -1,10 +1,11 @@
 #Llevar la palapara a su estado base con SPACY (lemma)
 # import es_core_news_lg
-
+from tweetlib.singleton import Utils
+from tweetlib.definitions import TaggingMethod
 # text = ["Monitorización", "monitorizando", "realizando", "realización", "estudio", "emoticons", "😊", "😋", "🥰", "😚", ":)", "❥", "⚤", " ✱"]
+nlp = Utils.load_nlp(TaggingMethod.SPACY)
 
-
-def Lemmatize(text: list, nlp):
+def lemmatize(text: list):
     """Convierte cada token a su estado base con ayuda de la biblioteca SPACY
 
     Args:
@@ -15,7 +16,10 @@ def Lemmatize(text: list, nlp):
         list[str]: Lista lematizada.
     """
     lem_text = []
-    doc = nlp(" ".join(text))
+    if type(text) == str:
+        doc = nlp(text)
+    else:
+        doc = nlp(" ".join(text))
     lem_text = [str(word.lemma_) for word in doc]
     # for word in tokens:
     #     lem_text.append(word.lemma_)

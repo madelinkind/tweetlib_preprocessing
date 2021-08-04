@@ -65,21 +65,20 @@ class DataSet():
         data = []
         y = []
         for user in list_users:
-            # cont = 0
+            #borrar luego, es para limitar la cantidad de usuarios de cada dateset
+            # cont_users += 1
+            # if cont_users != 6:
             length = 0
             user_name = TwitterUser.objects.get(screen_name=user)
             last_tweets = Tweet.objects.filter(twitter_user=user_name.id).all()
             for tweet in last_tweets:
-                if not tweet.is_retweet and tweet.tweet_lang == 'es':
+                if not tweet.is_retweet and tweet.tweet_lang == 'es' and len(tweet.tweet_text) > 2:
                     length += 1
-                    if length != 81:
+                    if length != 1001:
                         data.append(tweet.tweet_text)
                         y.append(user_name.id)
                     else:
                         break
-                #     cont = cont + 1
-                # if cont == 1000:
-                #     break
         print(len(data))
         return data, y
 
