@@ -25,7 +25,7 @@ class Tweet(models.Model):
     tweet_date = models.DateTimeField()
     tweet_lang = models.CharField(max_length=3, null=True)
     tweet_id = models.CharField(db_index=True, max_length=20, null=True)
-    tweet_info = models.JSONField()
+    tweet_info = models.JSONField(null=True)
     is_retweet = models.BooleanField(default=True)
     retweet_count = models.IntegerField(null=True)
 

@@ -106,7 +106,7 @@ class TwitterEngine(object):
             logging.warning(f"Invalid username: {username}!")
             return False
         
-        print(f"Downloading tweets for username: '{username}'")
+        print(f"Preparing to download tweets for username: '{username}'")
 
         time.sleep(5)
 
@@ -118,13 +118,14 @@ class TwitterEngine(object):
         # if Tweet.objects.filter(twitter_user=user.id).order_by('-tweet_date').exists():
         #     tweet_date_db_recent = Tweet.objects.filter(twitter_user=user.id).order_by('-tweet_date')[0].tweet_date
 
-        lastest_tweet = Tweet.objects.filter(twitter_user=user.id).order_by('-tweet_date').first()
+        lastest_tweet = Tweet.objects.filter(twitter_user=user.id,tweet_info__isnull=False).order_by('-tweet_date').first()
 
 
         # build dictionary of user tweets
         user_tweets_dict = self.build_user_tweets_dict(user)
 
         user_timeline = Cursor(self.TwitterApi.user_timeline, id=username).items()
+
         try:
             for tweet_info in user_timeline:
                 tweet_date_api_recent = tweet_info.created_at
@@ -141,8 +142,12 @@ class TwitterEngine(object):
                 if not success:
                     print("The tweet already exists in data base")
         except Exception as e:
-            print("The user has his tweets blocked, error =>", type(e).__name__)
-        
+            #except TweepError
+            if type(e).__name__ == 'TweepError':
+                TwitterUser.objects.filter(screen_name=username).delete()
+                print("The user does not exist in the Twitter API.")
+            else:
+                print("The user has his tweets blocked, error =>", type(e).__name__)
 
         return True
 

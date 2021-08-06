@@ -5,7 +5,7 @@ from crawler.io import load_users_list_from_file
 import crawler.config as conf
 from crawler.engine import TwitterEngine
 from crawler.storage import DBStorage
-# from datetime import datetime, date, time, timedelta
+from datetime import datetime, date, time, timedelta
 
 # ----------------------------------------------------------
 
@@ -24,18 +24,55 @@ from db.models import Tweet, TwitterUser
 
 # # load users list
 
-users_map = map(lambda item: item['screen_name'], TwitterUser.objects.order_by('id').values('screen_name'))
-users_list = list(users_map)
+def download_all_tweets_users():
+    users_map = map(lambda item: item['screen_name'], TwitterUser.objects.order_by('id').values('screen_name'))
+    users_list = list(users_map)
+    
+    dbs = DBStorage()
+    te = TwitterEngine(
+        access_token = conf.ACCESS_TOKEN,
+        access_token_secret = conf.ACCESS_TOKEN_SECRET,
+        consumer_key = conf.CONSUMER_KEY,
+        consumer_key_secret = conf.CONSUMER_KEY_SECRET,
+        usernames = users_list,
+    
+        storage = dbs
+    )
+    
+    te.download_tweets()
+# user = 'Ninelconde'
+def download_all_tweets_user(user, typeuser=None):
+#Si esta en DB lo descargamos directamente, de lo contrario insertamos en DB y descargamos los tweets.
+    if not TwitterUser.objects.filter(screen_name=user).exists():
+        TwitterUser.objects.create(screen_name=user)
 
-dbs = DBStorage()
-te = TwitterEngine(
-    access_token = conf.ACCESS_TOKEN,
-    access_token_secret = conf.ACCESS_TOKEN_SECRET,
-    consumer_key = conf.CONSUMER_KEY,
-    consumer_key_secret = conf.CONSUMER_KEY_SECRET,
-    usernames = users_list,
+    users_list = [user]
 
-    storage = dbs
-)
+    dbs = DBStorage()
+    te = TwitterEngine(
+        access_token = conf.ACCESS_TOKEN,
+        access_token_secret = conf.ACCESS_TOKEN_SECRET,
+        consumer_key = conf.CONSUMER_KEY,
+        consumer_key_secret = conf.CONSUMER_KEY_SECRET,
+        usernames = users_list,
 
-te.download_tweets()
+        storage = dbs
+    )
+
+    te.download_tweets()
+
+def delete_user(user_name):
+    TwitterUser.objects.filter(screen_name=user_name).delete()
+    print('Usuario eliminado satisfactoriamente de BD')
+
+# user_name = 'Ninelconde'
+# text = 'Tweet de prueba, verificar que es posible insertar un texto'
+def add_text_user(user_name, text):
+    if TwitterUser.objects.filter(screen_name=user_name).exists():
+        user = TwitterUser.objects.get(screen_name=user_name)
+        Tweet.objects.create(twitter_user=user, tweet_text=text, tweet_date=datetime.now(), tweet_lang='es', is_retweet=False)
+        print(f"El texto del usuario '{user_name}', fue agregado satisfactoriamente en la DB")
+    else:
+        print("El usuario no existe en BD. Por favor inserte antes el usuario en BD")
+# if __name__=='__main':
+#     download_all_tweets_user(user)
