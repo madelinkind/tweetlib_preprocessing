@@ -64,3 +64,8 @@ class ClassificationMethod(Enum):
     PMSVM = 3
     BAYES = 4
     LOGISTIC_REGRESSION = 5
+
+class TypeTask(Enum):
+    VALIDATE_MODEL = 1
+    PREDICTION = 2
+    SAVE_MODEL = 3
