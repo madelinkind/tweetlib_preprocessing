@@ -20,6 +20,8 @@ django.setup()
 # Import your models for use in your script
 from db.models import Tweet, TwitterUser
 
+#save model
+from joblib import dump, load
 # ----------------------------------------------------------
 
 # # load users list
@@ -76,3 +78,5 @@ def add_text_user(user_name, text):
         print("El usuario no existe en BD. Por favor inserte antes el usuario en BD")
 # if __name__=='__main':
 #     download_all_tweets_user(user)
+
+#guardar modelos
