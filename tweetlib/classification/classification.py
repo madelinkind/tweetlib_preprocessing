@@ -42,11 +42,10 @@ from tweetlib.definitions import TaggingMethod, ClassificationMethod
 
 class Classification(object):
 
-    # def __init__(self, data: TwitterPipeline):
-    #     super(Classification, self).__init__()
-    # classify
-    def classification_method(self, X, y, method: ClassificationMethod):
+    #Validate
+    def validation_method(self, X, y, method):
         accuracy=[]
+        kfold_list = []
        #Separo los datos de "train" en entrenamiento y prueba para probar los algoritmos
         #dividimos en sets de entrenamiento y test
         # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -59,7 +58,7 @@ class Classification(object):
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
             #ejecutamos el modelo
-            model = self.run_model_balanced(X_train, X_test, y_train, y_test, method)
+            model = self.run_model_balanced(X_train, y_train, method)
             # se realiza las predicciones en los datos de prueba usando predict()
             pred_y = model.predict(X_test)
             score = accuracy_score(pred_y, y_test)
@@ -67,7 +66,8 @@ class Classification(object):
             #mostrar los resultados
             conf_matrix = confusion_matrix(y_test, pred_y)
             plt.figure(figsize=(12, 12))
-            LABELS= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            #Cambios recientes, borrar comentario luego
+            LABELS= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
             sns.heatmap(conf_matrix, xticklabels=LABELS, yticklabels=LABELS, annot=True, fmt="d");
             plt.title("Confusion matrix")
             plt.ylabel('True class')
@@ -78,9 +78,41 @@ class Classification(object):
         print(np.array(accuracy).mean())
         return np.array(accuracy).mean()
 
-        # show_results(y_test, pred_y)
+    #Save model
+    def model_storage(self, id_model, config: Configuration, X, y, method: ClassificationMethod):
+        m = self.run_model_balanced(X, y, method)
+        # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+        dict_config_model = {
+            'config': config,
+            'model': m
+        }
+        #guardar modelos
+        #save model train in the file
+        dump(dict_config_model, 'models/id_model.jb')
+        #load the model
+        model1 = load('models/model_train.jb')
 
-    def run_model_balanced(self, X_train, X_test, y_train, y_test, method: ClassificationMethod):
+    #Predict
+    def predict_method(self, X_test, X_train, y_train, y_test, method: ClassificationMethod):
+        # accuracy = []
+        model = self.run_model_balanced(X_train, y_train, method)
+        pred_y = model.predict(X_test)
+        # score = accuracy_score(pred_y, y_test)
+        # accuracy.append(score)
+        #mostrar los resultados
+        conf_matrix = confusion_matrix(y_test, pred_y)
+        plt.figure(figsize=(12, 12))
+        LABELS= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        sns.heatmap(conf_matrix, xticklabels=LABELS, yticklabels=LABELS, annot=True, fmt="d");
+        plt.title("Confusion matrix")
+        plt.ylabel('True class')
+        plt.xlabel('Predicted class')
+        plt.show()
+        # print (classification_report(y_test, pred_y))
+        # return np.array(accuracy).mean()
+
+    #Model
+    def run_model_balanced(self, X_train, y_train, method):
         #clasificador a utilizar
         if method == ClassificationMethod.LOGISTIC_REGRESSION:
             clf = LogisticRegression(C=1.0,penalty='l2',random_state=1,solver="newton-cg",class_weight="balanced")
