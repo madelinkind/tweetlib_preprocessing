@@ -8,16 +8,18 @@ PROJECT_FOLDER = os.path.split(TWEET_LIB_FOLDER)[0]
 
 sys.path.append(PROJECT_FOLDER)
 
-from tweetlib.definitions import Preprocessing, EncodingMethod, ClassificationMethod, TaggingMethod, TypeTask
+#Posiblemente estas importaciones no sean necesarias aqui, eliminar luego
+from tweetlib.definitions import Preprocessing, EncodingMethod, ClassificationMethod, TaggingMethod
 
 class Configuration(object):
 
-    def __init__(self, preprocessing_methods: list = [], encoding_method: int = None, classification_method: int = None, tagging_method: int = None, type_task: int = None):
+    def __init__(self, preprocessing_methods: list = [], encoding_method: int = None, classification_method: int = None, tagging_method: int = None, type_dataset: str = None):
         self.preprocessing_methods = preprocessing_methods
         self.encoding_method = encoding_method
         self.classification_method = classification_method
         self.tagging_method = tagging_method
-        self.type_task = type_task
+        # self.type_task = type_task
+        self.type_dataset = type_dataset
 
     def get_preprocessing_methods(self) -> list: 
         return self.preprocessing_methods
@@ -31,7 +33,7 @@ class Configuration(object):
     def set_encoding_method(self, encoding_method: int):
         self.encoding_method = encoding_method
 
-    def get_classificaion_method(self) -> int:
+    def get_classification_method(self) -> int:
         return self.classification_method
     
     def set_classification_method(self, classification_method: int):
@@ -43,12 +45,17 @@ class Configuration(object):
     def set_tagging_method(self, tagging_method: int):
         self.tagging_method = tagging_method
 
-    def get_type_task(self) -> int:
-        return self.type_task
+    # def get_type_task(self) -> int:
+    #     return self.type_task
     
-    def set_type_task(self, self.type_task: int):
-        self.type_task = type_task
+    # def set_type_task(self, self.type_task: int):
+    #     self.type_task = type_task
 
+    def get_type_dataset(self) -> str:
+        return self.type_dataset
+
+    def set_type_dataset(self, type_dataset: str):
+        self.type_dataset = type_dataset
     # list_of_preprocessing_to_apply = [
     #     Preprocessing.CLEAN_TWEET,
     #     Preprocessing.CLEAN_EMOTICONS,

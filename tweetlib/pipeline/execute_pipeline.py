@@ -46,10 +46,11 @@ from tweetlib.preprocessing.prep_definitions import dict_preprocessing
 from tweetlib.encoding.enc_definitions import dict_encoding
 from tweetlib.classification.task_definition import dict_task 
 from tweetlib.singleton import Utils 
+from typing import Optional
 
 class TwitterPipeline(object):
 
-    def __init__(self, config: Configuration, dataset: DataSet, classifier: Classification, task: TypeTask, text: str = None, id_model: int = None, n_value: int = None):
+    def __init__(self, dataset: DataSet, classifier: Classification, task: TypeTask, text: list = None, id_model: str = None, n_value: int = None, model = None, config: Configuration = None):
         super(TwitterPipeline, self).__init__()
 
         self.config = config
@@ -59,6 +60,7 @@ class TwitterPipeline(object):
         self.text = text
         self.id_model = id_model
         self.n_value = n_value
+        self.model = model
 
     def run(self):
         # get data and classes from self.data
@@ -76,12 +78,14 @@ class TwitterPipeline(object):
         data_texts = data.copy()
 
         type_task = dict_task[self.task]
-        if self.task.name == 'VALIDATE_MODEL' or self.task.name == 'MODEL_STORAGE':
+        if self.task.name == 'VALIDATE_MODEL' or self.task.name == 'MODEL_STORAGE' or self.task.name == 'PREDICTION':
+            if self.task.name == 'PREDICTION':
+                data_texts = self.text
             for preprocessing in preprocessing_list:
                 prep_method = dict_preprocessing[preprocessing]
                 if preprocessing.name != 'LOWERCASE' and preprocessing.name != 'REMOVE_STOP_WORDS' and preprocessing.name != 'MENTIONS':
-                    for idx, text in enumerate(data_texts):
-                        prep = prep_method(text)
+                    for idx, text_prep in enumerate(data_texts):
+                        prep = prep_method(text_prep)
                         data_texts[idx] = prep
                 else:
                     for idx, text in enumerate(data_texts):
@@ -112,16 +116,14 @@ class TwitterPipeline(object):
             # instancia de Classification
             # c = self.classifier
 
-
-
             if self.task.name == 'VALIDATE_MODEL':
-                validate_model = type_task(self, X, y, classifier_type)
+                #Devuelve una tupla con la lista de accuracy y un entero que es el promedio de esa lista
+                validate_model = type_task(X, y, classifier_type)
+            # accuracy = self.classifier.classification_method(X, y, classifier_type). n_value cantidad de clases con mejor presicion
+            elif self.task.name == 'PREDICTION':
+                predict_method = type_task(self.model, X, self.n_value)
             else:
                 # save_model = self.classifier.save_model(X, y, preprocessing_list, encoding, classifier_type, tagging_method_type, type_task, type_user)
                 model_storage = type_task(self.id_model, self.config, X, y, classifier_type)
 
-
-        # accuracy = self.classifier.classification_method(X, y, classifier_type). n_value cantidad de clases con mejor presicion
-        elif self.task.name == 'PREDICTION':
-            predict_method = type_task(self.id_model, self.text, self.n_value)
-
+        

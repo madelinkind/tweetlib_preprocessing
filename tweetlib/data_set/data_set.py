@@ -19,33 +19,33 @@ django.setup()
 
 # Import your models for use in your script
 from db.models import Tweet, TwitterUser
-from tweetlib.definitions import TypeUser
+from tweetlib.definitions import TypeDataSet
 
 class DataSet():
 
-    def __init__(self, user_type: TypeUser):
+    def __init__(self, user_type: TypeDataSet):
         data, y = self.get_tuple_tweets_user(user_type)
         self.data = data
         self.y = y
 
 #Se obtiene la tupla (list de tweets (data) y list de user (y)) por tipo de usuario.
-    def get_tuple_tweets_user(self, user_type: TypeUser):
-        if user_type == TypeUser.politico:
+    def get_tuple_tweets_user(self, user_type: TypeDataSet):
+        if user_type == TypeDataSet.politico:
             return self.get_user_tweets(user_type)
-        if user_type == TypeUser.youtuber:
+        if user_type == TypeDataSet.youtuber:
             return self.get_user_tweets(user_type)
-        if user_type == TypeUser.artista:
+        if user_type == TypeDataSet.artista:
             return self.get_user_tweets(user_type)
-        if user_type == TypeUser.deportista:
+        if user_type == TypeDataSet.deportista:
             return self.get_user_tweets(user_type)
-        elif user_type == TypeUser.all_results:
+        elif user_type == TypeDataSet.all_results:
             return self.get_user_tweets(user_type) 
         else:
-            raise Exception("You must enter a valid user type, See TypeUser.")
+            raise Exception("You must enter a valid user type, See TypeDataSet.")
 
 #Devuelve lista de usuario segun el tipo
-    def get_list_users(self, user_type: TypeUser) -> list:
-        if user_type == TypeUser.all_results:
+    def get_list_users(self, user_type: TypeDataSet) -> list:
+        if user_type == TypeDataSet.all_results:
             users_map = map(
                 lambda item: item['screen_name'], 
                 TwitterUser.objects.values('screen_name')
@@ -58,7 +58,7 @@ class DataSet():
         return list_users
 
 # Se obtiene una tupla (lista de tweets, lista del mismo usuario repetido con misma longitud que la lista de tweets)
-    def get_user_tweets(self, user_type: TypeUser):
+    def get_user_tweets(self, user_type: TypeDataSet):
 
         list_users = self.get_list_users(user_type)
             # Lists of Data(texts) and Class(y) in (es)
@@ -74,7 +74,7 @@ class DataSet():
             for tweet in last_tweets:
                 if not tweet.is_retweet and tweet.tweet_lang == 'es' and len(tweet.tweet_text) > 2:
                     length += 1
-                    if length != 1001:
+                    if length != 11:
                         data.append(tweet.tweet_text)
                         y.append(user_name.id)
                     else:

@@ -22,6 +22,11 @@ from db.models import Tweet, TwitterUser
 
 #save model
 from joblib import dump, load
+from tweetlib.classification.classification import Classification
+from tweetlib.config.configuration import Configuration
+from tweetlib.definitions import TypeDataSet, TypeTask, Preprocessing, EncodingMethod, ClassificationMethod
+from dict_commands import dict_commands
+from tweetlib.pipeline.execute_pipeline import TwitterPipeline
 # ----------------------------------------------------------
 
 # # load users list
@@ -79,4 +84,21 @@ def add_text_user(user_name, text):
 # if __name__=='__main':
 #     download_all_tweets_user(user)
 
+#------------------------------------------TASKS--------------------------------------------
+#Validate
+def validate_model(list_prep: list, encoding: EncodingMethod, method: ClassificationMethod):
+    if type_user.name == 'politicos'
+
+#Classification.
 #guardar modelos
+#save model train in the file
+dump(model, 'models/model_train.jb')
+#load the model
+model1 = load('models/model_train.jb')
+
+def create_model():
+    pass
+def update_model():
+    pass
+def find_author():
+    pass

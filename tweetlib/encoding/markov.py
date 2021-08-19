@@ -1,21 +1,21 @@
-import click
-from operator import mul
-from functools import reduce
+# import click
+# from operator import mul
+# from functools import reduce
 
-@click.command()
+# @click.command()
 # @click.argument('name', default='guest')
 # @click.argument('age', type=int, nargs=-1)
 # @click.option("--name", prompt="Your name", help="Provide your name")
 #Introducir en consola  "python markov.py --blue", para que te lo coja como verdadero.
-@click.option('--blue', is_flag=True, help='message in blue color')
+# @click.option('--blue', is_flag=True, help='message in blue color')
 
 # @click.argument('values', type=int)
 
-def hello(blue):
-    if blue:
-        click.secho('Hello there', fg='blue')
-    else:
-        click.secho('Hello there')
+# def hello(blue):
+#     if blue:
+#         click.secho('Hello there', fg='blue')
+#     else:
+#         click.secho('Hello there')
 
 # def hello(name):
 #     if name == 'PP':
@@ -25,11 +25,11 @@ def hello(blue):
     # print(f'hello {name} {age}')
     # print(f'The sum is {sum(age)}')
     # print(f'The product is {reduce(mul,age,1)}')
-if __name__=='__main__':
-    hello()
+# if __name__=='__main__':
+#     hello()
 
-# def Markov():
-#     pass
+def Markov():
+    pass
 
 # import os
 # import sys

@@ -20,6 +20,7 @@ from tweetlib.singleton import Utils
 #     return dict_ngram
 
 def char_grams(data_texts,n):
+    vectors = []
     for text in data_texts:
         #Uno la lista de string sin espacios
         text_union = "".join(text)

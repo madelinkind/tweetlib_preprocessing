@@ -17,7 +17,7 @@ class Lang(Enum):
     EN = 2
 
 # TYPE OF USER
-class TypeUser():
+class TypeDataSet():
     politico = 'politico'
     artista = 'artista'
     deportista = 'deportista'
@@ -48,7 +48,6 @@ class Preprocessing(Enum):
     HASHTAG = 12
     FIX_HASHTAG_TEXT = 13
 
-
 # TYPE ENCODING
 class EncodingMethod(Enum):
     BIGRAM = 1
@@ -56,6 +55,8 @@ class EncodingMethod(Enum):
     CUATRIGRAM = 3
     POSTAGGING = 4
     MARKOV = 5
+    ALL_CHARGRAM = 6
+    POS_ALL_CHARGRAM = 7
 
 # TYPE CLASSIFICATION
 class ClassificationMethod(Enum):
@@ -68,4 +69,4 @@ class ClassificationMethod(Enum):
 class TypeTask(Enum):
     VALIDATE_MODEL = 1
     PREDICTION = 2
-    SAVE_MODEL = 3
+    MODEL_STORAGE = 3
