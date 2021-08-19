@@ -77,7 +77,9 @@ class TwitterPipeline(object):
         #copy to data
         data_texts = data.copy()
 
+        # gettting the type of task
         type_task = dict_task[self.task]
+
         if self.task.name == 'VALIDATE_MODEL' or self.task.name == 'MODEL_STORAGE' or self.task.name == 'PREDICTION':
             if self.task.name == 'PREDICTION':
                 data_texts = self.text
