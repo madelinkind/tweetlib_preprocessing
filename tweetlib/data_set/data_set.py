@@ -28,7 +28,7 @@ class DataSet():
         self.data = data
         self.y = y
 
-#Se obtiene la tupla (list de tweets (data) y list de user (y)) por tipo de usuario.
+    #Se obtiene la tupla (list de tweets (data) y list de user (y)) por tipo de usuario.
     def get_tuple_tweets_user(self, user_type: TypeDataSet):
         if user_type == TypeDataSet.politico:
             return self.get_user_tweets(user_type)
@@ -43,7 +43,7 @@ class DataSet():
         else:
             raise Exception("You must enter a valid user type, See TypeDataSet.")
 
-#Devuelve lista de usuario segun el tipo
+    #Devuelve lista de usuario segun el tipo
     def get_list_users(self, user_type: TypeDataSet) -> list:
         if user_type == TypeDataSet.all_results:
             users_map = map(
@@ -57,11 +57,11 @@ class DataSet():
             list_users = list(users_map)
         return list_users
 
-# Se obtiene una tupla (lista de tweets, lista del mismo usuario repetido con misma longitud que la lista de tweets)
+    # Se obtiene una tupla (lista de tweets, lista del mismo usuario repetido con misma longitud que la lista de tweets)
     def get_user_tweets(self, user_type: TypeDataSet):
 
         list_users = self.get_list_users(user_type)
-            # Lists of Data(texts) and Class(y) in (es)
+        # Lists of Data(texts) and Class(y) in (es)
         data = []
         y = []
         for user in list_users:
@@ -79,7 +79,7 @@ class DataSet():
                         y.append(user_name.id)
                     else:
                         break
-        print(len(data))
+        # print(len(data))
         return data, y
 
     def get_data(self):

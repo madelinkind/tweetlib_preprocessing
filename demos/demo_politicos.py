@@ -14,42 +14,40 @@ from tweetlib.classification.classification import Classification
 from tweetlib.data_set.politicos import DataSetPoliticos
 from joblib import dump, load
 
-# config = Configuration([
-#         # Preprocessing.TOKENIZE,
-#         Preprocessing.FIX_HASHTAG_TEXT,
-#         # Preprocessing.REMOVE_ALPHA_NUMERIC,
-#         # Preprocessing.NUM,
-#         # Preprocessing.PUNCT,
-#         # Preprocessing.EMAILS,
-#         # Preprocessing.LINKS,
-#         # Preprocessing.LOWERCASE,
-#         # Preprocessing.LEMMATIZE,
-#         # Preprocessing.EMOTICONS, 
-#         # Preprocessing.REMOVE_STOP_WORDS,
-#         # Preprocessing.MENTIONS,
-#         # Preprocessing.HASHTAG
-#     ], 
-#     # EncodingMethod.POSTAGGING,
-#     EncodingMethod.BIGRAM, 
-#     # ClassificationMethod.LOGISTIC_REGRESSION
-#     ClassificationMethod.SVM,
-#     TaggingMethod.SPACY,
-#     # TypeDataSet.politico
-# )
+config = Configuration([
+        # Preprocessing.TOKENIZE,
+        Preprocessing.FIX_HASHTAG_TEXT, 
+        # Preprocessing.REMOVE_ALPHA_NUMERIC,
+        # Preprocessing.NUM,
+        # Preprocessing.PUNCT,
+        # Preprocessing.EMAILS,
+        # Preprocessing.LINKS,
+        # Preprocessing.LOWERCASE,
+        # Preprocessing.LEMMATIZE,
+        # Preprocessing.EMOTICONS, 
+        # Preprocessing.REMOVE_STOP_WORDS,
+        # Preprocessing.MENTIONS,
+        # Preprocessing.HASHTAG
+    ], 
+    # EncodingMethod.POSTAGGING,
+    EncodingMethod.BIGRAM, 
+    # ClassificationMethod.LOGISTIC_REGRESSION
+    ClassificationMethod.SVM,
+    TaggingMethod.SPACY,
+    # TypeDataSet.politico
+)
 
 #id_model, text, n_value, model y config se van a pasar como kwrds como parametro de la instancia, es decir como diccionario, ej: id_mode = 1
 #-----------------PREDICTION---------------------------
-type_task = TypeTask.PREDICTION
-id_model = 'm1'
+# type_task = TypeTask.PREDICTION
+# id_model = 'm1'
 #Insertar esto en DEMO
 #load the model
-dict_config_model = load(f'models/{id_model}')
-# model = dict_config_model['model']
-# config = dict_config_model['config']
+# dict_config_model = load(f'models/{id_model}')
 #------------------------------------------------------
 
 #-----------------VALIDATE_MODEL------------------------
-# type_task = TypeTask.VALIDATE_MODEL
+type_task = TypeTask.VALIDATE_MODEL
 #------------------------------------------------------
 
 #-----------------MODEL_STORAGE------------------------
@@ -63,11 +61,9 @@ classifier = Classification()
 
 
 
-pipeline = TwitterPipeline(data_set_politicos, classifier, type_task, model = dict_config_model['model'], config = dict_config_model['config'], text = ['@pepe esta informando sobre covid'])
+# pipeline = TwitterPipeline(data_set_politicos, classifier, type_task, model = dict_config_model['model'], config = dict_config_model['config'], text = ['@pepe esta informando sobre covid'])
 
-# pipeline = TwitterPipeline(config, data_set_politicos, classifier, type_task)
+pipeline = TwitterPipeline(config, data_set_politicos, classifier, type_task)
 
 if __name__ == "__main__":
     pipeline.run()
-
-

@@ -14,7 +14,9 @@ class Utils(object):
             return Utils.ngram_dict[n]
         else:
             # compute ngrams
-            list_alpha_numeric = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚáéíóú1234567890@#/()=?¿¡;,.:…_-\'"]\[}{|<>'
+            # list_alpha_numeric = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚáéíóú1234567890@#/()=?¿¡;,.:…_-\'"]\[}{|<>'
+            list_alpha_numeric = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZÁÉÍÓÚáéíóú1234567890@#'
+
             result_dict = ["".join(p) for p in itertools.product(list_alpha_numeric, repeat=n)]
 
             for i in result_dict:

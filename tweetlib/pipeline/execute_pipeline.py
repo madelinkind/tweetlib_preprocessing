@@ -1,26 +1,26 @@
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
+# from sklearn.model_selection import train_test_split
+# from sklearn.svm import SVC
+# from sklearn.metrics import confusion_matrix
+# from sklearn.metrics import precision_score
+# from sklearn.metrics import recall_score
 
 #Python
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# import seaborn as sns
 
-from sklearn.metrics import classification_report
-from sklearn.linear_model import LogisticRegression
-from sklearn.decomposition import PCA
-from sklearn.tree import DecisionTreeClassifier
+# from sklearn.metrics import classification_report
+# from sklearn.linear_model import LogisticRegression
+# from sklearn.decomposition import PCA
+# from sklearn.tree import DecisionTreeClassifier
 
-from pylab import rcParams
+# from pylab import rcParams
 
-from imblearn.under_sampling import NearMiss
-from imblearn.over_sampling import RandomOverSampler
-from imblearn.combine import SMOTETomek
-from imblearn.ensemble import BalancedBaggingClassifier
+# from imblearn.under_sampling import NearMiss
+# from imblearn.over_sampling import RandomOverSampler
+# from imblearn.combine import SMOTETomek
+# from imblearn.ensemble import BalancedBaggingClassifier
 
 import os
 import sys
@@ -34,23 +34,25 @@ sys.path.append(PROJECT_FOLDER)
 
 from tweetlib.data_set.data_set import DataSet
 from tweetlib.config.configuration import Configuration
-from tweetlib.encoding import postagging
-from tweetlib.definitions import ClassificationMethod
+# from tweetlib.encoding import postagging
+#Chequear si necesito importa
+#  ClassificationMethod
+# from tweetlib.definitions import ClassificationMethod
 from tweetlib.classification.classification import Classification
 # from tweetlib.preprocessing.remove_stop_words import Stop_words
-from tweetlib.definitions import TaggingMethod, DictionarySize, Lang, TypeTask
-from tweetlib.init_nlp import init_nlp
+from tweetlib.definitions import TypeTask
+# from tweetlib.init_nlp import init_nlp
 # from tweetlib.singleton import NlpFactory
 
 from tweetlib.preprocessing.prep_definitions import dict_preprocessing
 from tweetlib.encoding.enc_definitions import dict_encoding
 from tweetlib.classification.task_definition import dict_task 
 from tweetlib.singleton import Utils 
-from typing import Optional
+# from typing import Optional
 
 class TwitterPipeline(object):
 
-    def __init__(self, dataset: DataSet, classifier: Classification, task: TypeTask, text: list = None, id_model: str = None, n_value: int = None, model = None, config: Configuration = None):
+    def __init__(self, config: Configuration, dataset: DataSet, classifier: Classification, task: TypeTask, text: list = None, id_model: str = None, n_value: int = None, model = None):
         super(TwitterPipeline, self).__init__()
 
         self.config = config
@@ -100,11 +102,11 @@ class TwitterPipeline(object):
             if encoding.name == 'BIGRAM' or encoding.name == 'TRIGRAM' or encoding.name == 'CUATRIGRAM':
                 vector_encoding = encoding_method(data_texts)
             elif encoding.name == 'ALL_CHARGRAM':
-                vectors = encoding_method(data_texts)
-                vector_encoding = np.concatenate(vectors[0], vectors[1], vectors[2])
+                vector_encoding = encoding_method(data_texts)
+                # vector_encoding = np.concatenate(vectors[0], vectors[1])
             elif encoding.name == 'POS_ALL_CHARGRAM':
-                vectors = encoding_method(data_texts, tagging_method_type.name, nlp)
-                vector_encoding = np.concatenate(vectors[0], vectors[1], vectors[2], vectors[3])
+                vector_encoding = encoding_method(data_texts, tagging_method_type.name, nlp)
+                # vector_encoding = np.concatenate(vectors[0], vectors[1], vectors[2])
             #postagging
             else:
                 vector_encoding = encoding_method(data_texts, tagging_method_type.name, nlp)
